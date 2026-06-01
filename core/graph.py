@@ -1,6 +1,8 @@
 import json
-import math
+from math import inf
 from pathlib import Path
+
+from core.loader import load_graph, resolve_vertex_index
 
 
 class Graph:
@@ -9,55 +11,56 @@ class Graph:
         self.edges_path = Path(edges_path)
         self.nodes = {}
         self.edges = []
-        self.adjacency = {}
+        self._td_graph = None
+        self._navigator = None
         self.load()
 
     def load(self):
-        node_rows = self._read_json_list(self.nodes_path)
         edge_rows = self._read_json_list(self.edges_path)
-
-        self.nodes = {str(node["id"]): node for node in node_rows if "id" in node}
+        self._td_graph, self._navigator, types = load_graph(self.nodes_path, self.edges_path)
         self.edges = edge_rows
-        self.adjacency = {node_id: [] for node_id in self.nodes}
+        self.nodes = {}
+        for node in self._td_graph.nodes:
+            self.nodes[node.key] = {
+                "id": node.key,
+                "name": node.name,
+                "x": node.x,
+                "y": node.y,
+                "type": types.get(node.key, "Waypoint"),
+            }
 
-        for edge in self.edges:
-            from_id, to_id = self._edge_endpoints(edge)
-            if from_id not in self.nodes or to_id not in self.nodes:
-                continue
-
-            weight = self.euclidean_distance(from_id, to_id)
-            self.adjacency[from_id].append((to_id, weight))
-
-            if self._is_bidirectional(edge):
-                self.adjacency[to_id].append((from_id, weight))
+    def find_shortest_path(self, start_id, end_id):
+        u = resolve_vertex_index(start_id, self._td_graph)
+        v = resolve_vertex_index(end_id, self._td_graph)
+        if u == -1:
+            raise ValueError(f"Node bắt đầu không tồn tại: {start_id}")
+        if v == -1:
+            raise ValueError(f"Node đích không tồn tại: {end_id}")
+        distances, previous = self._navigator.dijkstra(u, v)
+        if distances[v] == inf:
+            return [], inf
+        path_idx = self._navigator.getPath(u, v, previous)
+        path_ids = [self._td_graph.nodes[i].key for i in path_idx]
+        return path_ids, distances[v]
 
     def get_node_options(self):
         return [
             f"{node_id} - {node.get('name', '')}".strip()
-            for node_id, node in sorted(self.nodes.items())
+            for node_id, node in sorted(self.nodes.items(), key=lambda item: int(item[0]) if item[0].isdigit() else item[0])
         ]
 
     def get_coordinates(self, path_ids):
         return [(self.nodes[node_id]["x"], self.nodes[node_id]["y"]) for node_id in path_ids]
 
-    def euclidean_distance(self, from_id, to_id):
-        first = self.nodes[from_id]
-        second = self.nodes[to_id]
-        dx = second["x"] - first["x"]
-        dy = second["y"] - first["y"]
-        return math.sqrt(dx * dx + dy * dy)
-
     @staticmethod
     def _read_json_list(path):
         if not path.exists() or path.stat().st_size == 0:
             return []
-
         try:
             with path.open("r", encoding="utf-8") as file:
                 data = json.load(file)
         except json.JSONDecodeError:
             return []
-
         return data if isinstance(data, list) else []
 
     @staticmethod
@@ -67,9 +70,3 @@ class Graph:
         if isinstance(edge, (list, tuple)) and len(edge) >= 2:
             return str(edge[0]), str(edge[1])
         return None, None
-
-    @staticmethod
-    def _is_bidirectional(edge):
-        if isinstance(edge, dict):
-            return bool(edge.get("bidirectional", True))
-        return True

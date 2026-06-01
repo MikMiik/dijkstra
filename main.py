@@ -5,7 +5,6 @@ from tkinter import messagebox, simpledialog, ttk
 
 from PIL import Image, ImageTk
 
-from core.dijkstra import shortest_path
 from core.graph import Graph
 
 
@@ -228,7 +227,7 @@ class DijkstraMapApp(tk.Tk):
             return
 
         try:
-            path_ids, distance = shortest_path(self.graph.adjacency, start_id, end_id)
+            path_ids, distance = self.graph.find_shortest_path(start_id, end_id)
         except ValueError as exc:
             messagebox.showerror("Lỗi dữ liệu", str(exc))
             return
