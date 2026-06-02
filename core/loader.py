@@ -3,7 +3,7 @@ import math
 from pathlib import Path
 
 from core.navigator import Navigator
-from core.td_graph import Edge, Node, TDGraph
+from core.graph import Edge, Graph, Node
 
 
 def resolve_vertex_index(key, graph):
@@ -22,7 +22,7 @@ def load_graph(nodes_path, edges_path):
     with edges_path.open("r", encoding="utf-8") as f:
         edges_data = json.load(f)
 
-    graph = TDGraph()
+    graph = Graph()
     types = {}
 
     for i in range(len(nodes_data)):

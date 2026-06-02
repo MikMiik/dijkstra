@@ -5,7 +5,7 @@ from tkinter import messagebox, simpledialog, ttk
 
 from PIL import Image, ImageTk
 
-from core.graph import Graph
+from core.map import CampusMap
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -154,7 +154,7 @@ class DijkstraMapApp(tk.Tk):
         self.canvas.config(width=image.width, height=image.height, scrollregion=(0, 0, image.width, image.height))
 
     def reload_graph(self):
-        self.graph = Graph(NODES_PATH, EDGES_PATH)
+        self.graph = CampusMap(NODES_PATH, EDGES_PATH)
         options = self.graph.get_node_options()
 
         for combo in (self.start_box, self.end_box, self.edge_from_box, self.edge_to_box):
