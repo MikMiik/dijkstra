@@ -161,7 +161,6 @@ Sau `_ensure_data_files`, `_build_ui`, `_load_map`, `__init__` gọi `reload_gra
             combo["values"] = options
 
         self.redraw_map()
-        self.status_var.set(f"Đã tải {len(self.graph.nodes)} node, {len(self.graph.edges)} cạnh.")
 ```
 
 **Input:** không có tham số; dùng hằng `NODES_PATH`, `EDGES_PATH`.

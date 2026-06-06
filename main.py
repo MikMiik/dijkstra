@@ -1,7 +1,6 @@
-import json
 import tkinter as tk
 from pathlib import Path
-from tkinter import messagebox, simpledialog, ttk
+from tkinter import messagebox, ttk
 
 from PIL import Image, ImageTk
 
@@ -17,58 +16,6 @@ EDGES_PATH = DATA_DIR / "edges.json"
 NODE_RADIUS = 5
 
 
-class NodeDialog(simpledialog.Dialog):
-    def __init__(self, parent, x, y):
-        self.x = x
-        self.y = y
-        self.result = None
-        super().__init__(parent, title=f"Thêm node tại ({x}, {y})")
-
-    def body(self, master):
-        ttk.Label(master, text="ID").grid(row=0, column=0, sticky="w", padx=6, pady=4)
-        ttk.Label(master, text="Tên node").grid(row=1, column=0, sticky="w", padx=6, pady=4)
-        ttk.Label(master, text="Loại").grid(row=2, column=0, sticky="w", padx=6, pady=4)
-
-        self.id_var = tk.StringVar()
-        self.name_var = tk.StringVar()
-        self.type_var = tk.StringVar(value="Waypoint")
-
-        self.id_entry = ttk.Entry(master, textvariable=self.id_var, width=28)
-        self.name_entry = ttk.Entry(master, textvariable=self.name_var, width=28)
-        self.type_box = ttk.Combobox(
-            master,
-            textvariable=self.type_var,
-            values=("Building", "Waypoint"),
-            state="readonly",
-            width=25,
-        )
-
-        self.id_entry.grid(row=0, column=1, sticky="ew", padx=6, pady=4)
-        self.name_entry.grid(row=1, column=1, sticky="ew", padx=6, pady=4)
-        self.type_box.grid(row=2, column=1, sticky="ew", padx=6, pady=4)
-        return self.id_entry
-
-    def validate(self):
-        node_id = self.id_var.get().strip()
-        name = self.name_var.get().strip()
-
-        if not node_id:
-            messagebox.showerror("Thiếu ID", "Vui lòng nhập ID cho node.")
-            return False
-        if not name:
-            messagebox.showerror("Thiếu tên", "Vui lòng nhập tên node.")
-            return False
-
-        self.result = {
-            "id": node_id,
-            "name": name,
-            "x": self.x,
-            "y": self.y,
-            "type": self.type_var.get(),
-        }
-        return True
-
-
 class DijkstraMapApp(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -76,13 +23,10 @@ class DijkstraMapApp(tk.Tk):
         self.geometry("1180x760")
         self.minsize(980, 620)
 
-        self.mode = tk.StringVar(value="run")
         self.status_var = tk.StringVar(value="Sẵn sàng.")
         self.distance_var = tk.StringVar(value="Tổng khoảng cách: --")
         self.start_var = tk.StringVar()
         self.end_var = tk.StringVar()
-        self.edge_from_var = tk.StringVar()
-        self.edge_to_var = tk.StringVar()
 
         self.photo = None
         self.graph = None
@@ -98,10 +42,6 @@ class DijkstraMapApp(tk.Tk):
 
         toolbar = ttk.Frame(root)
         toolbar.pack(fill="x", pady=(0, 8))
-
-        ttk.Label(toolbar, text="Chế độ").pack(side="left", padx=(0, 6))
-        ttk.Radiobutton(toolbar, text="Chạy", value="run", variable=self.mode).pack(side="left")
-        ttk.Radiobutton(toolbar, text="Đánh dấu", value="mark", variable=self.mode).pack(side="left", padx=(0, 14))
 
         ttk.Label(toolbar, text="Tu").pack(side="left")
         self.start_box = ttk.Combobox(toolbar, textvariable=self.start_var, width=28, state="readonly")
@@ -124,25 +64,9 @@ class DijkstraMapApp(tk.Tk):
 
         self.canvas = tk.Canvas(canvas_frame, background="#f4f4f4", highlightthickness=1, highlightbackground="#c8c8c8")
         self.canvas.pack(fill="both", expand=True)
-        self.canvas.bind("<Button-1>", self.handle_canvas_click)
 
         ttk.Label(side_frame, textvariable=self.distance_var).pack(anchor="w", pady=(0, 12))
-
-        edge_group = ttk.LabelFrame(side_frame, text="Thêm cạnh")
-        edge_group.pack(fill="x", pady=(0, 12))
-
-        ttk.Label(edge_group, text="Đỉnh 1").pack(anchor="w", padx=8, pady=(8, 2))
-        self.edge_from_box = ttk.Combobox(edge_group, textvariable=self.edge_from_var, state="readonly")
-        self.edge_from_box.pack(fill="x", padx=8)
-
-        ttk.Label(edge_group, text="Đỉnh 2").pack(anchor="w", padx=8, pady=(8, 2))
-        self.edge_to_box = ttk.Combobox(edge_group, textvariable=self.edge_to_var, state="readonly")
-        self.edge_to_box.pack(fill="x", padx=8)
-
-        ttk.Button(edge_group, text="Lưu cạnh 2 chiều", command=self.add_edge).pack(fill="x", padx=8, pady=10)
-
-        ttk.Button(side_frame, text="Tải lại dữ liệu", command=self.reload_graph).pack(fill="x")
-        ttk.Label(side_frame, textvariable=self.status_var, wraplength=240).pack(anchor="w", pady=(14, 0))
+        ttk.Label(side_frame, textvariable=self.status_var, wraplength=240).pack(anchor="w")
 
     def _load_map(self):
         if not MAP_PATH.exists():
@@ -157,11 +81,10 @@ class DijkstraMapApp(tk.Tk):
         self.graph = CampusMap(NODES_PATH, EDGES_PATH)
         options = self.graph.get_node_options()
 
-        for combo in (self.start_box, self.end_box, self.edge_from_box, self.edge_to_box):
+        for combo in (self.start_box, self.end_box):
             combo["values"] = options
 
         self.redraw_map()
-        self.status_var.set(f"Đã tải {len(self.graph.nodes)} node, {len(self.graph.edges)} cạnh.")
 
     def redraw_map(self):
         self.canvas.delete("all")
@@ -176,47 +99,6 @@ class DijkstraMapApp(tk.Tk):
             self._draw_node(node)
 
         self.distance_var.set("Tổng khoảng cách: --")
-
-    def handle_canvas_click(self, event):
-        if self.mode.get() != "mark":
-            return
-
-        x = int(self.canvas.canvasx(event.x))
-        y = int(self.canvas.canvasy(event.y))
-        dialog = NodeDialog(self, x, y)
-        if not dialog.result:
-            return
-
-        nodes = self._read_json_list(NODES_PATH)
-        if any(str(node.get("id")) == dialog.result["id"] for node in nodes):
-            messagebox.showerror("Trùng ID", f"ID '{dialog.result['id']}' đã tồn tại.")
-            return
-
-        nodes.append(dialog.result)
-        self._write_json_list(NODES_PATH, nodes)
-        self.reload_graph()
-        self.status_var.set(f"Đã thêm node {dialog.result['id']} tại ({x}, {y}).")
-
-    def add_edge(self):
-        from_id = self._selected_id(self.edge_from_var.get())
-        to_id = self._selected_id(self.edge_to_var.get())
-
-        if not from_id or not to_id:
-            messagebox.showerror("Thiếu node", "Vui lòng chọn đầy đủ hai node.")
-            return
-        if from_id == to_id:
-            messagebox.showerror("Cạnh không hợp lệ", "Hai đầu cạnh phải là hai node khác nhau.")
-            return
-
-        edges = self._read_json_list(EDGES_PATH)
-        if any({str(edge.get("from")), str(edge.get("to"))} == {from_id, to_id} for edge in edges if isinstance(edge, dict)):
-            messagebox.showinfo("Đã tồn tại", "Cạnh này đã có trong edges.json.")
-            return
-
-        edges.append({"from": from_id, "to": to_id, "bidirectional": True})
-        self._write_json_list(EDGES_PATH, edges)
-        self.reload_graph()
-        self.status_var.set(f"Đã thêm cạnh {from_id} <-> {to_id}.")
 
     def find_path(self):
         start_id = self._selected_id(self.start_var.get())
@@ -278,23 +160,6 @@ class DijkstraMapApp(tk.Tk):
         for path in (NODES_PATH, EDGES_PATH):
             if not path.exists() or path.stat().st_size == 0:
                 path.write_text("[]\n", encoding="utf-8")
-
-    @staticmethod
-    def _read_json_list(path):
-        if not path.exists() or path.stat().st_size == 0:
-            return []
-        try:
-            with path.open("r", encoding="utf-8") as file:
-                data = json.load(file)
-        except json.JSONDecodeError:
-            return []
-        return data if isinstance(data, list) else []
-
-    @staticmethod
-    def _write_json_list(path, data):
-        with path.open("w", encoding="utf-8") as file:
-            json.dump(data, file, ensure_ascii=False, indent=2)
-            file.write("\n")
 
 
 if __name__ == "__main__":
