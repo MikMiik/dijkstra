@@ -1,7 +1,6 @@
 class Node:
-    def __init__(self, index, key, name, x, y):
+    def __init__(self, index, name, x, y):
         self.index = index
-        self.key = str(key)
         self.name = name
         self.x = x
         self.y = y

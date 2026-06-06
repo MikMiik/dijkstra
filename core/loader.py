@@ -6,14 +6,6 @@ from core.navigator import Navigator
 from core.graph import Edge, Graph, Node
 
 
-def resolve_vertex_index(key, graph):
-    key_str = str(key)
-    for i in range(len(graph.nodes)):
-        if graph.nodes[i].key == key_str:
-            return i
-    return -1
-
-
 def load_graph(nodes_path, edges_path):
     nodes_path = Path(nodes_path)
     edges_path = Path(edges_path)
@@ -27,14 +19,15 @@ def load_graph(nodes_path, edges_path):
 
     for i in range(len(nodes_data)):
         nd = nodes_data[i]
-        node = Node(i, nd["id"], nd["name"], nd["x"], nd["y"])
+        node = Node(i, nd["name"], nd["x"], nd["y"])
         graph.addNode(node)
-        types[str(nd["id"])] = nd.get("type", "Waypoint")
+        types[i] = nd.get("type", "Waypoint")
 
+    node_count = len(graph.nodes)
     for ed in edges_data:
-        u = resolve_vertex_index(ed["from"], graph)
-        v = resolve_vertex_index(ed["to"], graph)
-        if u == -1 or v == -1:
+        u = int(ed["from"])
+        v = int(ed["to"])
+        if u < 0 or u >= node_count or v < 0 or v >= node_count:
             continue
         x1, y1 = graph.nodes[u].x, graph.nodes[u].y
         x2, y2 = graph.nodes[v].x, graph.nodes[v].y

@@ -2,7 +2,7 @@ import json
 from math import inf
 from pathlib import Path
 
-from core.loader import load_graph, resolve_vertex_index
+from core.loader import load_graph
 
 
 class CampusMap:
@@ -21,32 +21,31 @@ class CampusMap:
         self.edges = edge_rows
         self.nodes = {}
         for node in self._graph.nodes:
-            self.nodes[node.key] = {
-                "id": node.key,
+            self.nodes[node.index] = {
+                "id": node.index,
                 "name": node.name,
                 "x": node.x,
                 "y": node.y,
-                "type": types.get(node.key, "Waypoint"),
+                "type": types.get(node.index, "Waypoint"),
             }
 
     def find_shortest_path(self, start_id, end_id):
-        u = resolve_vertex_index(start_id, self._graph)
-        v = resolve_vertex_index(end_id, self._graph)
-        if u == -1:
+        u = int(start_id)
+        v = int(end_id)
+        if u < 0 or u >= len(self._graph.nodes):
             raise ValueError(f"Node bắt đầu không tồn tại: {start_id}")
-        if v == -1:
+        if v < 0 or v >= len(self._graph.nodes):
             raise ValueError(f"Node đích không tồn tại: {end_id}")
         distances, previous = self._navigator.dijkstra(u, v)
         if distances[v] == inf:
             return [], inf
         path_idx = self._navigator.getPath(u, v, previous)
-        path_ids = [self._graph.nodes[i].key for i in path_idx]
-        return path_ids, distances[v]
+        return path_idx, distances[v]
 
     def get_node_options(self):
         return [
             f"{node_id} - {node.get('name', '')}".strip()
-            for node_id, node in sorted(self.nodes.items(), key=lambda item: int(item[0]) if item[0].isdigit() else item[0])
+            for node_id, node in sorted(self.nodes.items())
         ]
 
     def get_coordinates(self, path_ids):
@@ -66,7 +65,7 @@ class CampusMap:
     @staticmethod
     def _edge_endpoints(edge):
         if isinstance(edge, dict):
-            return str(edge.get("from")), str(edge.get("to"))
+            return int(edge.get("from")), int(edge.get("to"))
         if isinstance(edge, (list, tuple)) and len(edge) >= 2:
-            return str(edge[0]), str(edge[1])
+            return int(edge[0]), int(edge[1])
         return None, None

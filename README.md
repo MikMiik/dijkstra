@@ -46,7 +46,7 @@ Không có đường nối giữa hai đỉnh → thông báo *Không tìm thấ
 
 1. Chọn **Chế độ → Đánh dấu**.
 2. Click một vị trí trên canvas.
-3. Điền **ID** (không trùng id đã có), **Tên node**, **Loại** (`Building` hoặc `Waypoint`).
+3. Điền **Tên node**, **Loại** (`Building` hoặc `Waypoint`). ID được gán tự động theo thứ tự trong `nodes.json`.
 4. Node được ghi vào `data/nodes.json` và bản đồ tự tải lại.
 
 - **Building**: chấm xanh lá.
@@ -68,10 +68,7 @@ Khi mở app, dữ liệu cũng được nạp tự động một lần.
 
 ## Định danh
 
-| Khái niệm | Ý nghĩa |
-|-----------|---------|
-| `id` / key | Mã trong JSON và combobox; dùng khi chọn Tu/Den |
-| `index` | Chỉ số nội bộ trong thuật toán (0..n-1), không nhập trên UI |
+`id` trong JSON và combobox trùng với **index** (0, 1, 2, …) — vị trí node trong danh sách. ID được gán tự động khi thêm node; không nhập tay.
 
 Trọng số cạnh luôn tính từ tọa độ `(x, y)` trên ảnh, không lưu sẵn trong JSON.
 

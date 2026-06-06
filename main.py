@@ -25,15 +25,12 @@ class NodeDialog(simpledialog.Dialog):
         super().__init__(parent, title=f"Thêm node tại ({x}, {y})")
 
     def body(self, master):
-        ttk.Label(master, text="ID").grid(row=0, column=0, sticky="w", padx=6, pady=4)
-        ttk.Label(master, text="Tên node").grid(row=1, column=0, sticky="w", padx=6, pady=4)
-        ttk.Label(master, text="Loại").grid(row=2, column=0, sticky="w", padx=6, pady=4)
+        ttk.Label(master, text="Tên node").grid(row=0, column=0, sticky="w", padx=6, pady=4)
+        ttk.Label(master, text="Loại").grid(row=1, column=0, sticky="w", padx=6, pady=4)
 
-        self.id_var = tk.StringVar()
         self.name_var = tk.StringVar()
         self.type_var = tk.StringVar(value="Waypoint")
 
-        self.id_entry = ttk.Entry(master, textvariable=self.id_var, width=28)
         self.name_entry = ttk.Entry(master, textvariable=self.name_var, width=28)
         self.type_box = ttk.Combobox(
             master,
@@ -43,24 +40,18 @@ class NodeDialog(simpledialog.Dialog):
             width=25,
         )
 
-        self.id_entry.grid(row=0, column=1, sticky="ew", padx=6, pady=4)
-        self.name_entry.grid(row=1, column=1, sticky="ew", padx=6, pady=4)
-        self.type_box.grid(row=2, column=1, sticky="ew", padx=6, pady=4)
-        return self.id_entry
+        self.name_entry.grid(row=0, column=1, sticky="ew", padx=6, pady=4)
+        self.type_box.grid(row=1, column=1, sticky="ew", padx=6, pady=4)
+        return self.name_entry
 
     def validate(self):
-        node_id = self.id_var.get().strip()
         name = self.name_var.get().strip()
 
-        if not node_id:
-            messagebox.showerror("Thiếu ID", "Vui lòng nhập ID cho node.")
-            return False
         if not name:
             messagebox.showerror("Thiếu tên", "Vui lòng nhập tên node.")
             return False
 
         self.result = {
-            "id": node_id,
             "name": name,
             "x": self.x,
             "y": self.y,
@@ -188,14 +179,11 @@ class DijkstraMapApp(tk.Tk):
             return
 
         nodes = self._read_json_list(NODES_PATH)
-        if any(str(node.get("id")) == dialog.result["id"] for node in nodes):
-            messagebox.showerror("Trùng ID", f"ID '{dialog.result['id']}' đã tồn tại.")
-            return
-
-        nodes.append(dialog.result)
+        new_id = len(nodes)
+        nodes.append({"id": new_id, **dialog.result})
         self._write_json_list(NODES_PATH, nodes)
         self.reload_graph()
-        self.status_var.set(f"Đã thêm node {dialog.result['id']} tại ({x}, {y}).")
+        self.status_var.set(f"Đã thêm node {new_id} tại ({x}, {y}).")
 
     def add_edge(self):
         from_id = self._selected_id(self.edge_from_var.get())
@@ -209,11 +197,13 @@ class DijkstraMapApp(tk.Tk):
             return
 
         edges = self._read_json_list(EDGES_PATH)
-        if any({str(edge.get("from")), str(edge.get("to"))} == {from_id, to_id} for edge in edges if isinstance(edge, dict)):
+        from_idx = int(from_id)
+        to_idx = int(to_id)
+        if any({edge.get("from"), edge.get("to")} == {from_idx, to_idx} for edge in edges if isinstance(edge, dict)):
             messagebox.showinfo("Đã tồn tại", "Cạnh này đã có trong edges.json.")
             return
 
-        edges.append({"from": from_id, "to": to_id, "bidirectional": True})
+        edges.append({"from": from_idx, "to": to_idx, "bidirectional": True})
         self._write_json_list(EDGES_PATH, edges)
         self.reload_graph()
         self.status_var.set(f"Đã thêm cạnh {from_id} <-> {to_id}.")
@@ -241,7 +231,7 @@ class DijkstraMapApp(tk.Tk):
         points = self.graph.get_coordinates(path_ids)
         self._draw_path(points)
         self.distance_var.set(f"Tổng khoảng cách: {distance:.2f} px")
-        self.status_var.set(" -> ".join(path_ids))
+        self.status_var.set(" -> ".join(str(node_id) for node_id in path_ids))
 
     def _draw_path(self, points):
         if len(points) >= 2:
