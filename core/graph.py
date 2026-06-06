@@ -1,10 +1,10 @@
 class Node:
-    def __init__(self, index, key, name, x, y):
-        self.index = index
-        self.key = str(key)
+    def __init__(self, id, name, x, y, type):
+        self.id = id
         self.name = name
         self.x = x
         self.y = y
+        self.type = type
 
 
 class Edge:

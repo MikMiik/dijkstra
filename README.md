@@ -43,10 +43,7 @@ Khi mở app, dữ liệu được nạp tự động từ `data/nodes.json` và
 
 ## Định danh
 
-| Khái niệm | Ý nghĩa |
-|-----------|---------|
-| `id` / key | Mã trong JSON và combobox; dùng khi chọn Tu/Den |
-| `index` | Chỉ số nội bộ trong thuật toán (0..n-1), không nhập trên UI |
+`id` trong JSON, `Node.id` và combobox là một (0, 1, 2, …) — vị trí node trong danh sách.
 
 Trọng số cạnh luôn tính từ tọa độ `(x, y)` trên ảnh, không lưu sẵn trong JSON.
 

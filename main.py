@@ -95,7 +95,7 @@ class DijkstraMapApp(tk.Tk):
             return
 
         self._draw_edges()
-        for node in self.graph.nodes.values():
+        for node in self.graph.nodes:
             self._draw_node(node)
 
         self.distance_var.set("Tổng khoảng cách: --")
@@ -123,7 +123,7 @@ class DijkstraMapApp(tk.Tk):
         points = self.graph.get_coordinates(path_ids)
         self._draw_path(points)
         self.distance_var.set(f"Tổng khoảng cách: {distance:.2f} px")
-        self.status_var.set(" -> ".join(path_ids))
+        self.status_var.set(" -> ".join(str(node_id) for node_id in path_ids))
 
     def _draw_path(self, points):
         if len(points) >= 2:
@@ -136,19 +136,19 @@ class DijkstraMapApp(tk.Tk):
     def _draw_edges(self):
         for edge in self.graph.edges:
             from_id, to_id = self.graph._edge_endpoints(edge)
-            if from_id not in self.graph.nodes or to_id not in self.graph.nodes:
+            if from_id < 0 or to_id < 0 or from_id >= len(self.graph.nodes) or to_id >= len(self.graph.nodes):
                 continue
 
             first = self.graph.nodes[from_id]
             second = self.graph.nodes[to_id]
-            self.canvas.create_line(first["x"], first["y"], second["x"], second["y"], fill="#2f7dd1", width=2, dash=(4, 4))
+            self.canvas.create_line(first.x, first.y, second.x, second.y, fill="#2f7dd1", width=2, dash=(4, 4))
 
     def _draw_node(self, node):
-        x = node["x"]
-        y = node["y"]
-        color = "#1f8f4d" if node.get("type") == "Building" else "#111827"
+        x = node.x
+        y = node.y
+        color = "#1f8f4d" if node.type == "Building" else "#111827"
         self.canvas.create_oval(x - NODE_RADIUS, y - NODE_RADIUS, x + NODE_RADIUS, y + NODE_RADIUS, fill=color, outline="white", width=2)
-        self.canvas.create_text(x + 8, y - 8, text=str(node["id"]), fill="#111827", anchor="sw", font=("Segoe UI", 9, "bold"))
+        self.canvas.create_text(x + 8, y - 8, text=str(node.id), fill="#111827", anchor="sw", font=("Segoe UI", 9, "bold"))
 
     @staticmethod
     def _selected_id(value):
