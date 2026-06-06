@@ -28,7 +28,7 @@ class CampusMap:
         distances, previous = self._navigator.dijkstra(u, v)
         if distances[v] == inf:
             return [], inf
-        path_idx = self._navigator.getPath(u, v, previous)
+        path_idx = self._navigator.getPath(v, previous)
         return path_idx, distances[v]
 
     def get_node_options(self):

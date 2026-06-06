@@ -58,7 +58,7 @@ class Navigator:
                     pq.push(new_dist, v)
         return distances, previous
 
-    def getPath(self, start_idx, end_idx, previous):
+    def getPath(self, end_idx, previous):
         path = []
         current = end_idx
         while current != -1:
