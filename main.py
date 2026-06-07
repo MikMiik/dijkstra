@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -13,7 +14,7 @@ MAP_PATH = DATA_DIR / "map.jpg"
 NODES_PATH = DATA_DIR / "nodes.json"
 EDGES_PATH = DATA_DIR / "edges.json"
 
-NODE_RADIUS = 5
+NODE_RADIUS = 4
 
 
 class DijkstraMapApp(tk.Tk):
@@ -25,6 +26,7 @@ class DijkstraMapApp(tk.Tk):
 
         self.status_var = tk.StringVar(value="Sẵn sàng.")
         self.distance_var = tk.StringVar(value="Tổng khoảng cách: --")
+        self.elapsed_var = tk.StringVar(value="Thời gian: --")
         self.start_var = tk.StringVar()
         self.end_var = tk.StringVar()
 
@@ -43,11 +45,11 @@ class DijkstraMapApp(tk.Tk):
         toolbar = ttk.Frame(root)
         toolbar.pack(fill="x", pady=(0, 8))
 
-        ttk.Label(toolbar, text="Tu").pack(side="left")
+        ttk.Label(toolbar, text="Từ").pack(side="left")
         self.start_box = ttk.Combobox(toolbar, textvariable=self.start_var, width=28, state="readonly")
         self.start_box.pack(side="left", padx=6)
 
-        ttk.Label(toolbar, text="Den").pack(side="left")
+        ttk.Label(toolbar, text="Đến").pack(side="left")
         self.end_box = ttk.Combobox(toolbar, textvariable=self.end_var, width=28, state="readonly")
         self.end_box.pack(side="left", padx=6)
 
@@ -65,7 +67,8 @@ class DijkstraMapApp(tk.Tk):
         self.canvas = tk.Canvas(canvas_frame, background="#f4f4f4", highlightthickness=1, highlightbackground="#c8c8c8")
         self.canvas.pack(fill="both", expand=True)
 
-        ttk.Label(side_frame, textvariable=self.distance_var).pack(anchor="w", pady=(0, 12))
+        ttk.Label(side_frame, textvariable=self.distance_var).pack(anchor="w", pady=(0, 6))
+        ttk.Label(side_frame, textvariable=self.elapsed_var).pack(anchor="w", pady=(0, 12))
         ttk.Label(side_frame, textvariable=self.status_var, wraplength=240).pack(anchor="w")
 
     def _load_map(self):
@@ -99,6 +102,7 @@ class DijkstraMapApp(tk.Tk):
             self._draw_node(node)
 
         self.distance_var.set("Tổng khoảng cách: --")
+        self.elapsed_var.set("Thời gian: --")
 
     def find_path(self):
         start_id = self._selected_id(self.start_var.get())
@@ -109,12 +113,15 @@ class DijkstraMapApp(tk.Tk):
             return
 
         try:
+            t0 = time.perf_counter()
             path_ids, distance = self.graph.find_shortest_path(start_id, end_id)
+            elapsed_text = self._format_elapsed((time.perf_counter() - t0) * 1000)
         except ValueError as exc:
             messagebox.showerror("Lỗi dữ liệu", str(exc))
             return
 
         self.redraw_map()
+        self.elapsed_var.set(elapsed_text)
         if not path_ids:
             self.distance_var.set("Không tìm thấy đường đi.")
             self.status_var.set(f"Không có đường từ {start_id} đến {end_id}.")
@@ -149,6 +156,12 @@ class DijkstraMapApp(tk.Tk):
         color = "#1f8f4d" if node.type == "Building" else "#111827"
         self.canvas.create_oval(x - NODE_RADIUS, y - NODE_RADIUS, x + NODE_RADIUS, y + NODE_RADIUS, fill=color, outline="white", width=2)
         self.canvas.create_text(x + 8, y - 8, text=str(node.id), fill="#111827", anchor="sw", font=("Segoe UI", 9, "bold"))
+
+    @staticmethod
+    def _format_elapsed(ms):
+        if ms < 0.01:
+            return f"Thời gian: {ms * 1000:.2f} µs"
+        return f"Thời gian: {ms:.2f} ms"
 
     @staticmethod
     def _selected_id(value):
