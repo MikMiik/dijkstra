@@ -15,6 +15,7 @@ NODES_PATH = DATA_DIR / "nodes.json"
 EDGES_PATH = DATA_DIR / "edges.json"
 
 NODE_RADIUS = 4
+METERS_PER_PIXEL = 410 / 568.26
 
 
 class DijkstraMapApp(tk.Tk):
@@ -129,7 +130,7 @@ class DijkstraMapApp(tk.Tk):
 
         points = self.graph.get_coordinates(path_ids)
         self._draw_path(points)
-        self.distance_var.set(f"Tổng khoảng cách: {distance:.2f} px")
+        self.distance_var.set(self._format_distance(distance))
         self.status_var.set(" -> ".join(str(node_id) for node_id in path_ids))
 
     def _draw_path(self, points):
@@ -156,6 +157,11 @@ class DijkstraMapApp(tk.Tk):
         color = "#1f8f4d" if node.type == "Building" else "#111827"
         self.canvas.create_oval(x - NODE_RADIUS, y - NODE_RADIUS, x + NODE_RADIUS, y + NODE_RADIUS, fill=color, outline="white", width=2)
         self.canvas.create_text(x + 8, y - 8, text=str(node.id), fill="#111827", anchor="sw", font=("Segoe UI", 9, "bold"))
+
+    @staticmethod
+    def _format_distance(px):
+        meters = px * METERS_PER_PIXEL
+        return f"Tổng khoảng cách: {meters:.2f} m\n~ {px:.2f} px"
 
     @staticmethod
     def _format_elapsed(ms):
