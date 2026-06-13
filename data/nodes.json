@@ -1,380 +1,520 @@
 [
-    {
-        "id": 0,
-        "name": "Cong Parabol",
-        "x": 92,
-        "y": 351,
-        "type": "Building"
-    },
-    {
-        "id": 1,
-        "name": "DiemRe",
-        "x": 224,
-        "y": 352,
-        "type": "Waypoint"
-    },
-    {
-        "id": 2,
-        "name": "DiemRe",
-        "x": 254,
-        "y": 352,
-        "type": "Waypoint"
-    },
-    {
-        "id": 3,
-        "name": "DiemRe",
-        "x": 325,
-        "y": 354,
-        "type": "Waypoint"
-    },
-    {
-        "id": 4,
-        "name": "DiemRe",
-        "x": 392,
-        "y": 349,
-        "type": "Waypoint"
-    },
-    {
-        "id": 5,
-        "name": "DiemRe",
-        "x": 414,
-        "y": 350,
-        "type": "Waypoint"
-    },
-    {
-        "id": 6,
-        "name": "DiemRe",
-        "x": 539,
-        "y": 352,
-        "type": "Waypoint"
-    },
-    {
-        "id": 7,
-        "name": "Cong Tran Dai Nghia",
-        "x": 660,
-        "y": 352,
-        "type": "Building"
-    },
-    {
-        "id": 8,
-        "name": "C9",
-        "x": 244,
-        "y": 251,
-        "type": "Building"
-    },
-    {
-        "id": 9,
-        "name": "C2",
-        "x": 249,
-        "y": 175,
-        "type": "Building"
-    },
-    {
-        "id": 10,
-        "name": "DiemRe C1-2",
-        "x": 248,
-        "y": 97,
-        "type": "Waypoint"
-    },
-    {
-        "id": 11,
-        "name": "C1",
-        "x": 337,
-        "y": 96,
-        "type": "Building"
-    },
-    {
-        "id": 12,
-        "name": "DiemRe C1-3",
-        "x": 419,
-        "y": 97,
-        "type": "Waypoint"
-    },
-    {
-        "id": 13,
-        "name": "C3",
-        "x": 420,
-        "y": 144,
-        "type": "Building"
-    },
-    {
-        "id": 14,
-        "name": "C4",
-        "x": 420,
-        "y": 198,
-        "type": "Building"
-    },
-    {
-        "id": 15,
-        "name": "C5",
-        "x": 420,
-        "y": 252,
-        "type": "Building"
-    },
-    {
-        "id": 16,
-        "name": "C10",
-        "x": 422,
-        "y": 292,
-        "type": "Building"
-    },
-    {
-        "id": 17,
-        "name": "Dai Phun Nuoc",
-        "x": 331,
-        "y": 200,
-        "type": "Building"
-    },
-    {
-        "id": 18,
-        "name": "D2",
-        "x": 197,
-        "y": 421,
-        "type": "Building"
-    },
-    {
-        "id": 19,
-        "name": "D4",
-        "x": 175,
-        "y": 474,
-        "type": "Building"
-    },
-    {
-        "id": 20,
-        "name": "DiemRe",
-        "x": 225,
-        "y": 480,
-        "type": "Waypoint"
-    },
-    {
-        "id": 21,
-        "name": "D6",
-        "x": 282,
-        "y": 473,
-        "type": "Building"
-    },
-    {
-        "id": 22,
-        "name": "D8",
-        "x": 283,
-        "y": 499,
-        "type": "Building"
-    },
-    {
-        "id": 23,
-        "name": "Thu vien Ta Quang Buu",
-        "x": 471,
-        "y": 433,
-        "type": "Building"
-    },
-    {
-        "id": 24,
-        "name": "D9",
-        "x": 475,
-        "y": 518,
-        "type": "Building"
-    },
-    {
-        "id": 25,
-        "name": "D3",
-        "x": 585,
-        "y": 381,
-        "type": "Building"
-    },
-    {
-        "id": 26,
-        "name": "D5",
-        "x": 585,
-        "y": 437,
-        "type": "Building"
-    },
-    {
-        "id": 27,
-        "name": "D7",
-        "x": 580,
-        "y": 483,
-        "type": "Building"
-    },
-    {
-        "id": 28,
-        "name": "C6",
-        "x": 596,
-        "y": 200,
-        "type": "Building"
-    },
-    {
-        "id": 29,
-        "name": "C7",
-        "x": 589,
-        "y": 252,
-        "type": "Building"
-    },
-    {
-        "id": 30,
-        "name": "C8",
-        "x": 604,
-        "y": 306,
-        "type": "Building"
-    },
-    {
-        "id": 31,
-        "name": "C10B",
-        "x": 525,
-        "y": 296,
-        "type": "Building"
-    },
-    {
-        "id": 32,
-        "name": "D3-5",
-        "x": 627,
-        "y": 406,
-        "type": "Building"
-    },
-    {
-        "id": 33,
-        "name": "B1",
-        "x": 800,
-        "y": 435,
-        "type": "Building"
-    },
-    {
-        "id": 34,
-        "name": "Cong KTX",
-        "x": 780,
-        "y": 350,
-        "type": "Waypoint"
-    },
-    {
-        "id": 35,
-        "name": "B6",
-        "x": 727,
-        "y": 164,
-        "type": "Building"
-    },
-    {
-        "id": 36,
-        "name": "DiemRe",
-        "x": 779,
-        "y": 164,
-        "type": "Waypoint"
-    },
-    {
-        "id": 37,
-        "name": "B5",
-        "x": 825,
-        "y": 164,
-        "type": "Building"
-    },
-    {
-        "id": 38,
-        "name": "B5b",
-        "x": 827,
-        "y": 145,
-        "type": "Building"
-    },
-    {
-        "id": 39,
-        "name": "B7",
-        "x": 730,
-        "y": 219,
-        "type": "Building"
-    },
-    {
-        "id": 40,
-        "name": "B9",
-        "x": 825,
-        "y": 217,
-        "type": "Building"
-    },
-    {
-        "id": 41,
-        "name": "DiemRe",
-        "x": 779,
-        "y": 230,
-        "type": "Waypoint"
-    },
-    {
-        "id": 42,
-        "name": "DiemRe",
-        "x": 778,
-        "y": 288,
-        "type": "Waypoint"
-    },
-    {
-        "id": 43,
-        "name": "B7bis",
-        "x": 732,
-        "y": 266,
-        "type": "Building"
-    },
-    {
-        "id": 44,
-        "name": "B8",
-        "x": 730,
-        "y": 308,
-        "type": "Building"
-    },
-    {
-        "id": 45,
-        "name": "DiemRe",
-        "x": 331,
-        "y": 267,
-        "type": "Waypoint"
-    },
-    {
-        "id": 46,
-        "name": "Ho Tien",
-        "x": 370,
-        "y": 483,
-        "type": "Building"
-    },
-    {
-        "id": 47,
-        "name": "DiemRe",
-        "x": 225,
-        "y": 422,
-        "type": "Waypoint"
-    },
-    {
-        "id": 48,
-        "name": "DiemRe",
-        "x": 545,
-        "y": 201,
-        "type": "Waypoint"
-    },
-    {
-        "id": 49,
-        "name": "DiemRe",
-        "x": 543,
-        "y": 264,
-        "type": "Waypoint"
-    },
-    {
-        "id": 50,
-        "name": "DiemRe",
-        "x": 543,
-        "y": 299,
-        "type": "Waypoint"
-    },
-    {
-        "id": 51,
-        "name": "DiemRe",
-        "x": 529,
-        "y": 486,
-        "type": "Waypoint"
-    },
-    {
-        "id": 52,
-        "name": "DiemRe",
-        "x": 625,
-        "y": 385,
-        "type": "Waypoint"
-    },
-    {
-        "id": 53,
-        "name": "DiemRe",
-        "x": 325,
-        "y": 486,
-        "type": "Waypoint"
-    }
+  {
+    "id": 0,
+    "name": "Cong Parabol",
+    "x": 98,
+    "y": 350,
+    "type": "Waypoint"
+  },
+  {
+    "id": 1,
+    "name": "Diem re",
+    "x": 224,
+    "y": 354,
+    "type": "Waypoint"
+  },
+  {
+    "id": 2,
+    "name": "Diem re",
+    "x": 224,
+    "y": 485,
+    "type": "Waypoint"
+  },
+  {
+    "id": 3,
+    "name": "D6",
+    "x": 276,
+    "y": 474,
+    "type": "Building"
+  },
+  {
+    "id": 4,
+    "name": "D8",
+    "x": 275,
+    "y": 494,
+    "type": "Building"
+  },
+  {
+    "id": 5,
+    "name": "Diem re",
+    "x": 324,
+    "y": 482,
+    "type": "Waypoint"
+  },
+  {
+    "id": 6,
+    "name": "Diem re",
+    "x": 324,
+    "y": 353,
+    "type": "Waypoint"
+  },
+  {
+    "id": 7,
+    "name": "Diem re",
+    "x": 326,
+    "y": 438,
+    "type": "Waypoint"
+  },
+  {
+    "id": 8,
+    "name": "Ho Tien",
+    "x": 365,
+    "y": 438,
+    "type": "Building"
+  },
+  {
+    "id": 9,
+    "name": "Diem re",
+    "x": 413,
+    "y": 439,
+    "type": "Waypoint"
+  },
+  {
+    "id": 10,
+    "name": "Diem re",
+    "x": 414,
+    "y": 490,
+    "type": "Waypoint"
+  },
+  {
+    "id": 11,
+    "name": "D9",
+    "x": 468,
+    "y": 516,
+    "type": "Building"
+  },
+  {
+    "id": 12,
+    "name": "Diem re",
+    "x": 323,
+    "y": 531,
+    "type": "Waypoint"
+  },
+  {
+    "id": 13,
+    "name": "Diem re",
+    "x": 411,
+    "y": 531,
+    "type": "Waypoint"
+  },
+  {
+    "id": 14,
+    "name": "Diem re",
+    "x": 527,
+    "y": 487,
+    "type": "Waypoint"
+  },
+  {
+    "id": 15,
+    "name": "D7",
+    "x": 573,
+    "y": 470,
+    "type": "Building"
+  },
+  {
+    "id": 16,
+    "name": "D5",
+    "x": 575,
+    "y": 420,
+    "type": "Building"
+  },
+  {
+    "id": 17,
+    "name": "Diem re",
+    "x": 530,
+    "y": 422,
+    "type": "Waypoint"
+  },
+  {
+    "id": 18,
+    "name": "Diem re",
+    "x": 529,
+    "y": 354,
+    "type": "Waypoint"
+  },
+  {
+    "id": 19,
+    "name": "D3",
+    "x": 580,
+    "y": 366,
+    "type": "Building"
+  },
+  {
+    "id": 20,
+    "name": "C8",
+    "x": 600,
+    "y": 316,
+    "type": "Building"
+  },
+  {
+    "id": 21,
+    "name": "Cong Tran Dai Nghia",
+    "x": 659,
+    "y": 347,
+    "type": "Building"
+  },
+  {
+    "id": 22,
+    "name": "Diem re",
+    "x": 625,
+    "y": 375,
+    "type": "Waypoint"
+  },
+  {
+    "id": 23,
+    "name": "D3-5",
+    "x": 624,
+    "y": 401,
+    "type": "Building"
+  },
+  {
+    "id": 24,
+    "name": "Diem re",
+    "x": 258,
+    "y": 350,
+    "type": "Waypoint"
+  },
+  {
+    "id": 25,
+    "name": "C9",
+    "x": 245,
+    "y": 262,
+    "type": "Building"
+  },
+  {
+    "id": 26,
+    "name": "C2",
+    "x": 250,
+    "y": 171,
+    "type": "Building"
+  },
+  {
+    "id": 27,
+    "name": "Diem re",
+    "x": 247,
+    "y": 90,
+    "type": "Waypoint"
+  },
+  {
+    "id": 28,
+    "name": "C1",
+    "x": 332,
+    "y": 90,
+    "type": "Building"
+  },
+  {
+    "id": 29,
+    "name": "Diem re",
+    "x": 284,
+    "y": 174,
+    "type": "Waypoint"
+  },
+  {
+    "id": 30,
+    "name": "Diem re",
+    "x": 283,
+    "y": 124,
+    "type": "Waypoint"
+  },
+  {
+    "id": 31,
+    "name": "Diem re",
+    "x": 283,
+    "y": 266,
+    "type": "Waypoint"
+  },
+  {
+    "id": 32,
+    "name": "Diem re",
+    "x": 419,
+    "y": 92,
+    "type": "Waypoint"
+  },
+  {
+    "id": 33,
+    "name": "Dai Phun Nuoc",
+    "x": 330,
+    "y": 198,
+    "type": "Building"
+  },
+  {
+    "id": 34,
+    "name": "Diem re",
+    "x": 327,
+    "y": 265,
+    "type": "Waypoint"
+  },
+  {
+    "id": 35,
+    "name": "Diem re",
+    "x": 392,
+    "y": 350,
+    "type": "Waypoint"
+  },
+  {
+    "id": 36,
+    "name": "C3",
+    "x": 419,
+    "y": 141,
+    "type": "Building"
+  },
+  {
+    "id": 37,
+    "name": "C4",
+    "x": 419,
+    "y": 195,
+    "type": "Building"
+  },
+  {
+    "id": 38,
+    "name": "C5",
+    "x": 417,
+    "y": 252,
+    "type": "Building"
+  },
+  {
+    "id": 39,
+    "name": "Diem re",
+    "x": 544,
+    "y": 199,
+    "type": "Waypoint"
+  },
+  {
+    "id": 40,
+    "name": "C6",
+    "x": 589,
+    "y": 199,
+    "type": "Building"
+  },
+  {
+    "id": 41,
+    "name": "C7",
+    "x": 591,
+    "y": 249,
+    "type": "Building"
+  },
+  {
+    "id": 42,
+    "name": "Diem re",
+    "x": 544,
+    "y": 252,
+    "type": "Waypoint"
+  },
+  {
+    "id": 43,
+    "name": "Diem re",
+    "x": 542,
+    "y": 305,
+    "type": "Waypoint"
+  },
+  {
+    "id": 44,
+    "name": "C10B",
+    "x": 521,
+    "y": 301,
+    "type": "Building"
+  },
+  {
+    "id": 45,
+    "name": "B8",
+    "x": 730,
+    "y": 307,
+    "type": "Building"
+  },
+  {
+    "id": 46,
+    "name": "B7bis",
+    "x": 728,
+    "y": 273,
+    "type": "Building"
+  },
+  {
+    "id": 47,
+    "name": "Diem re",
+    "x": 779,
+    "y": 285,
+    "type": "Waypoint"
+  },
+  {
+    "id": 48,
+    "name": "Diem re",
+    "x": 777,
+    "y": 230,
+    "type": "Waypoint"
+  },
+  {
+    "id": 49,
+    "name": "B7",
+    "x": 725,
+    "y": 227,
+    "type": "Building"
+  },
+  {
+    "id": 50,
+    "name": "Diem re",
+    "x": 779,
+    "y": 171,
+    "type": "Waypoint"
+  },
+  {
+    "id": 51,
+    "name": "B6",
+    "x": 727,
+    "y": 169,
+    "type": "Building"
+  },
+  {
+    "id": 52,
+    "name": "B5",
+    "x": 824,
+    "y": 169,
+    "type": "Building"
+  },
+  {
+    "id": 53,
+    "name": "B5b",
+    "x": 821,
+    "y": 143,
+    "type": "Building"
+  },
+  {
+    "id": 54,
+    "name": "B9",
+    "x": 824,
+    "y": 224,
+    "type": "Building"
+  },
+  {
+    "id": 55,
+    "name": "Diem re",
+    "x": 778,
+    "y": 347,
+    "type": "Waypoint"
+  },
+  {
+    "id": 56,
+    "name": "B1",
+    "x": 796,
+    "y": 418,
+    "type": "Building"
+  },
+  {
+    "id": 57,
+    "name": "CFC",
+    "x": 576,
+    "y": 147,
+    "type": "Building"
+  },
+  {
+    "id": 58,
+    "name": "Diem re",
+    "x": 144,
+    "y": 348,
+    "type": "Waypoint"
+  },
+  {
+    "id": 59,
+    "name": "Diem re",
+    "x": 143,
+    "y": 170,
+    "type": "Waypoint"
+  },
+  {
+    "id": 60,
+    "name": "D2",
+    "x": 199,
+    "y": 422,
+    "type": "Building"
+  },
+  {
+    "id": 61,
+    "name": "D4",
+    "x": 199,
+    "y": 468,
+    "type": "Building"
+  },
+  {
+    "id": 62,
+    "name": "Diem re",
+    "x": 223,
+    "y": 422,
+    "type": "Waypoint"
+  },
+  {
+    "id": 63,
+    "name": "ITIMS",
+    "x": 390,
+    "y": 294,
+    "type": "Building"
+  },
+  {
+    "id": 64,
+    "name": "D1",
+    "x": 378,
+    "y": 382,
+    "type": "Building"
+  },
+  {
+    "id": 65,
+    "name": "Diem re",
+    "x": 376,
+    "y": 262,
+    "type": "Waypoint"
+  },
+  {
+    "id": 66,
+    "name": "Diem re",
+    "x": 379,
+    "y": 175,
+    "type": "Waypoint"
+  },
+  {
+    "id": 67,
+    "name": "Diem re",
+    "x": 375,
+    "y": 127,
+    "type": "Waypoint"
+  },
+  {
+    "id": 68,
+    "name": "VDZ",
+    "x": 339,
+    "y": 399,
+    "type": "Building"
+  },
+  {
+    "id": 69,
+    "name": "PC",
+    "x": 301,
+    "y": 397,
+    "type": "Building"
+  },
+  {
+    "id": 70,
+    "name": "CFL",
+    "x": 376,
+    "y": 414,
+    "type": "Building"
+  },
+  {
+    "id": 71,
+    "name": "Thu Vien TQB",
+    "x": 470,
+    "y": 404,
+    "type": "Building"
+  },
+  {
+    "id": 72,
+    "name": "C10",
+    "x": 418,
+    "y": 292,
+    "type": "Building"
+  },
+  {
+    "id": 73,
+    "name": "Diem re",
+    "x": 622,
+    "y": 424,
+    "type": "Waypoint"
+  }
 ]

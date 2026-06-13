@@ -25,11 +25,14 @@ DIST_TOLERANCE = 0.01
 # TC : Test Case
 # Expected : Kết quả mong đợi
 
-EXPECTED_0_TO_25 = {"path": [0, 1, 2, 3, 4, 5, 6, 25], "dist": 501.63527840068963}
+EXPECTED_0_TO_25 = {"path": [0, 58, 1, 25], "dist": 220.6344497601203}
 EXPECTED_SAME_NODE = {"path": [0], "dist": 0}
-EXPECTED_SYMMETRIC_DIST = 501.63527840068963
-EXPECTED_0_TO_1 = {"path": [0, 1], "dist": 132.00378782444085}
-EXPECTED_0_TO_50 = {"path": [0, 1, 2, 3, 4, 5, 6, 50], "dist": 500.40770296707274}
+EXPECTED_SYMMETRIC_DIST = 220.6344497601203
+EXPECTED_58_TO_1 = {"path": [58, 1], "dist": 80.22468448052632}
+EXPECTED_0_TO_50 = {
+    "path": [0, 58, 1, 24, 6, 35, 18, 21, 55, 47, 48, 50],
+    "dist": 856.9619297263026,
+}
 EXPECTED_LAZY_DELETION = {"path": [0, 2, 1], "dist": 5}
 EXPECTED_EARLY_STOP = {"path": [0, 1, 2], "dist": 2}
 EXPECTED_EQUAL_WEIGHT_DIST = 10
@@ -85,15 +88,15 @@ def run_layer_a():
     )
     passed_count += run_case(3, "Đối xứng khoảng cách 0 ↔ 25", passed, f"{dist_ab} so với {dist_ba}")
 
-    # TC04 — Hai đỉnh kề trực tiếp: 0 → 1, khoảng cách = độ dài cạnh Euclidean
-    path, distance = campus_map.find_shortest_path("0", "1")
-    passed, detail = check_path_distance(path, distance, EXPECTED_0_TO_1["path"], EXPECTED_0_TO_1["dist"])
-    passed_count += run_case(4, "Hai đỉnh kề 0 → 1", passed, detail)
+    # TC04 — Hai đỉnh kề trực tiếp: 58 → 1, khoảng cách = độ dài cạnh Euclidean
+    path, distance = campus_map.find_shortest_path("58", "1")
+    passed, detail = check_path_distance(path, distance, EXPECTED_58_TO_1["path"], EXPECTED_58_TO_1["dist"])
+    passed_count += run_case(4, "Hai đỉnh kề 58 → 1", passed, detail)
 
-    # TC05 — Đường qua nhánh 0 → 50 (cạnh 6 ↔ 50)
+    # TC05 — Đường tiêu biểu 0 → 50 (qua nhánh phía đông)
     path, distance = campus_map.find_shortest_path("0", "50")
     passed, detail = check_path_distance(path, distance, EXPECTED_0_TO_50["path"], EXPECTED_0_TO_50["dist"])
-    passed_count += run_case(5, "Đường qua nhánh 0 → 50", passed, detail)
+    passed_count += run_case(5, "Đường tiêu biểu 0 → 50", passed, detail)
 
     # TC06 — Đỉnh không tồn tại: 99 → 0 
     try:
